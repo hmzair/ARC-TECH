@@ -103,7 +103,7 @@ export function AboutSection() {
       {/* Background Video - Always Visible */}
       <div className="absolute inset-0 w-full h-full">
         <video autoPlay muted loop playsInline className="w-full h-full object-cover opacity-80" aria-hidden="true">
-          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nova-Y5vNr7fwi06sUdisNWBVLOFtqADhvd.webm" type="video/webm" />
+          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nova-ZPz7qw8njipCohHQ0xm9ovw7T0b5Q9.webm" type="video/webm" />
           <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800" />
         </video>
         {/* Minimal overlay for text readability */}

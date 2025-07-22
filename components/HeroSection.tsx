@@ -1,222 +1,199 @@
 "use client"
-import { useRef } from "react"
+
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles, ChevronDown } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { ArrowRight, Sparkles, Zap, Shield } from "lucide-react"
+import Link from "next/link"
+import { RobotModel } from "@/components/3d/RobotModel"
+import { Suspense } from "react"
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls, Environment } from "@react-three/drei"
 
 export function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  })
+  const [mounted, setMounted] = useState(false)
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
-    >
-      {/* Background Video with Parallax */}
-      <motion.div style={{ y, opacity }} className="absolute inset-0 w-full h-full">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover opacity-30">
-          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0001-0069-GXWRvSr2kbJE8mDGT6ZU0QMLDI9FGz.webm" type="video/webm" />
-        </video>
-        <div className="absolute inset-0 hero-overlay" />
-      </motion.div>
-
-      {/* Floating Particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-0.5 h-0.5 bg-gradient-to-r from-yellow-400/40 to-amber-500/40 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0, 0.6, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 8 + Math.random() * 4,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: Math.random() * 5,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-yellow-500/5 to-transparent rounded-full" />
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-6 lg:px-8 text-center relative z-10">
-        {/* Brand Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass-luxury mb-12"
-        >
-          <Sparkles className="w-5 h-5 text-yellow-400" />
-          <span className="text-sm font-light text-yellow-400 tracking-wide">Created by Hamza Alnasir</span>
-        </motion.div>
-
-        {/* Main Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.6, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16"
-        >
-          <motion.h1
-            className="text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] font-extralight leading-none tracking-tighter text-cinematic"
-            animate={{
-              textShadow: [
-                "0 0 40px rgba(212, 175, 55, 0.3)",
-                "0 0 80px rgba(212, 175, 55, 0.5)",
-                "0 0 40px rgba(212, 175, 55, 0.3)",
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          >
-            <span className="text-luxury">ARC-TECH</span>
-          </motion.h1>
-
-          {/* Glow rings */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <motion.div
-              className="w-[600px] h-[300px] border border-yellow-500/10 rounded-full"
-              animate={{
-                scale: [1, 1.05, 1],
-                opacity: [0.2, 0.4, 0.2],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Subtitle */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 space-y-6"
-        >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-cinematic">
-            <span className="text-white/90">Intelligence</span> <span className="text-luxury">Refined</span>
-          </h2>
-          <p className="text-xl md:text-2xl lg:text-3xl font-light text-white/60 max-w-4xl mx-auto leading-relaxed">
-            Your AI-powered digital agents — sleek, smart, and stunning.
-          </p>
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
-        >
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
+          {/* Left Content */}
           <motion.div
-            whileHover={{ scale: 1.02, y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
-            <Button
-              onClick={() => {
-                const element = document.getElementById("featured")
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" })
-                }
-              }}
-              size="lg"
-              className="btn-luxury px-12 py-6 rounded-2xl text-lg font-light text-white border-0 glow-gold-soft hover:glow-gold-intense"
-            >
-              <span className="flex items-center gap-3">
-                Explore AI Agents
-                <ArrowRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1" />
-              </span>
-            </Button>
-          </motion.div>
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex items-center space-x-2 text-yellow-400"
+              >
+                <Sparkles className="w-5 h-5" />
+                <span className="text-sm font-medium tracking-wider uppercase">Next-Gen AI Technology</span>
+              </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.02, y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Button
-              onClick={() => {
-                const element = document.getElementById("about")
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" })
-                }
-              }}
-              variant="outline"
-              size="lg"
-              className="btn-luxury px-12 py-6 rounded-2xl text-lg font-light text-white/80 bg-transparent hover:text-white"
-            >
-              Learn More
-            </Button>
-          </motion.div>
-        </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-5xl lg:text-7xl font-extralight leading-tight"
+              >
+                <span className="text-white">The Future of</span>
+                <br />
+                <span className="bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+                  AI Agents
+                </span>
+              </motion.h1>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
-        >
-          {[
-            { value: "50+", label: "Premium Agents" },
-            { value: "99.9%", label: "Precision Rate" },
-            { value: "24/7", label: "Elite Support" },
-          ].map((stat, index) => (
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-xl text-gray-300 leading-relaxed max-w-2xl"
+              >
+                Experience the next generation of artificial intelligence with our premium AI agents. Designed for
+                businesses that demand excellence, powered by cutting-edge technology.
+              </motion.p>
+            </div>
+
+            {/* Features */}
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: 2.4 + index * 0.2,
-                duration: 1.2,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="text-center p-8 rounded-3xl glass-card hover:glass-luxury transition-all duration-700"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
             >
-              <div className="text-4xl md:text-5xl font-extralight text-luxury mb-3">{stat.value}</div>
-              <div className="text-lg font-light text-white/60">{stat.label}</div>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-lg flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-black" />
+                </div>
+                <div>
+                  <h3 className="text-white font-medium">Lightning Fast</h3>
+                  <p className="text-gray-400 text-sm">Instant responses</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-medium">Secure</h3>
+                  <p className="text-gray-400 text-sm">Enterprise-grade</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-medium">Intelligent</h3>
+                  <p className="text-gray-400 text-sm">Advanced AI</p>
+                </div>
+              </div>
             </motion.div>
-          ))}
-        </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Link href="/products">
+                <Button className="bg-gradient-to-r from-yellow-400 to-amber-600 hover:from-yellow-500 hover:to-amber-700 text-black font-semibold px-8 py-6 text-lg group">
+                  Explore Products
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/custom">
+                <Button
+                  variant="outline"
+                  className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-8 py-6 text-lg bg-transparent"
+                >
+                  Custom AI Agent
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-800"
+            >
+              <div>
+                <div className="text-2xl font-bold text-yellow-400">99.9%</div>
+                <div className="text-gray-400 text-sm">Uptime</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-yellow-400">50ms</div>
+                <div className="text-gray-400 text-sm">Response Time</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-yellow-400">24/7</div>
+                <div className="text-gray-400 text-sm">Support</div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Content - 3D Model */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative h-[600px] lg:h-[700px]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-blue-500/20 rounded-3xl blur-3xl" />
+            <div className="relative h-full rounded-3xl overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm border border-yellow-500/20">
+              {mounted && (
+                <Suspense
+                  fallback={<div className="flex items-center justify-center h-full text-yellow-400">Loading...</div>}
+                >
+                  <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                    <ambientLight intensity={0.5} />
+                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+                    <pointLight position={[-10, -10, -10]} intensity={0.5} />
+                    <RobotModel />
+                    <OrbitControls
+                      enableZoom={false}
+                      enablePan={false}
+                      minPolarAngle={Math.PI / 2.5}
+                      maxPolarAngle={Math.PI / 1.5}
+                    />
+                    <Environment preset="city" />
+                  </Canvas>
+                </Suspense>
+              )}
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.5, duration: 1.5 }}
-        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <motion.div
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-4 text-yellow-400/60"
-        >
-          <span className="text-sm font-light tracking-wider">Scroll to explore</span>
-          <ChevronDown className="w-5 h-5" />
-        </motion.div>
+        <div className="w-6 h-10 border-2 border-yellow-400/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-yellow-400 rounded-full mt-2 animate-bounce" />
+        </div>
       </motion.div>
     </section>
   )

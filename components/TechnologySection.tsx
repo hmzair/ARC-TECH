@@ -50,7 +50,7 @@ const technologies = [
 
 export function TechnologySection() {
   return (
-    <section className="py-20 relative">
+    <section className="py-20 relative bg-black text-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -59,7 +59,7 @@ export function TechnologySection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent">
               Technology Stack
             </span>
           </h2>
@@ -76,10 +76,10 @@ export function TechnologySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="glass rounded-2xl p-8 hover:glow-purple transition-all duration-300 group"
+              className="glass rounded-2xl p-8 hover:border-yellow-400/50 transition-all duration-300 group border border-transparent"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <tech.icon className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <tech.icon className="w-8 h-8 text-black" />
               </div>
 
               <h3 className="text-xl font-bold text-white mb-4">{tech.title}</h3>
@@ -88,7 +88,7 @@ export function TechnologySection() {
               <div className="space-y-2">
                 {tech.features.map((feature) => (
                   <div key={feature} className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
+                    <div className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></div>
                     <span className="text-sm text-gray-400">{feature}</span>
                   </div>
                 ))}

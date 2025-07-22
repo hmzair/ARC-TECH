@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    optimizePackageImports: ['@react-three/fiber', '@react-three/drei', 'framer-motion', 'lucide-react'],
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -7,12 +10,19 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['placeholder.svg'],
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.v0.dev',
+      },
+    ],
   },
-  experimental: {
-    optimizePackageImports: ['@react-three/fiber', '@react-three/drei', 'three'],
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
   },
+  poweredByHeader: false,
+  compress: true,
+  swcMinify: true,
 }
 
 export default nextConfig

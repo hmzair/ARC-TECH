@@ -1,28 +1,39 @@
-# Arc-Tech - AI-Powered Digital Agents Store
+# Arc-Tech E-commerce Website
 
-A futuristic e-commerce platform for AI-powered digital agents, built with Next.js 14, React Three Fiber, and modern web technologies.
+A premium AI agent marketplace built with Next.js 15, featuring advanced 3D models, payment integration, and modern UI/UX.
 
-## 🚀 Features
+## Features
 
-- **3D Product Visualization**: Interactive 3D models for each AI agent using React Three Fiber
-- **Modern UI/UX**: Dark theme with glassmorphism effects and smooth animations
-- **Shopping Cart**: Persistent cart state management with Zustand
-- **Responsive Design**: Optimized for mobile, tablet, and desktop
-- **Performance Optimized**: Lazy loading, code splitting, and optimized 3D rendering
-- **SEO Ready**: Proper metadata, structured data, and social sharing
+- 🤖 **AI Agent Showcase** - Interactive 3D models with detailed specifications
+- 🛒 **E-commerce Functionality** - Shopping cart, checkout, and payment processing
+- 💳 **Payment Integration** - Razorpay integration for secure payments
+- 📧 **Email Notifications** - Automated email confirmations and admin notifications
+- 🎨 **Modern UI/UX** - Glass morphism design with smooth animations
+- 📱 **Responsive Design** - Optimized for all device sizes
+- ⚡ **Performance Optimized** - Built with Next.js 15 and modern best practices
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Framework**: Next.js 14 with App Router
+- **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS with custom animations
-- **3D Graphics**: React Three Fiber + Drei + Three.js
-- **State Management**: Zustand with persistence
-- **UI Components**: Radix UI primitives
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI + shadcn/ui
+- **3D Graphics**: Three.js + React Three Fiber
 - **Animations**: Framer Motion
-- **Icons**: Lucide React
+- **State Management**: Zustand
+- **Payment**: Razorpay
+- **Email**: Nodemailer
+- **Deployment**: Vercel
 
-## 📦 Installation
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Razorpay account (for payments)
+
+### Installation
 
 1. Clone the repository:
 \`\`\`bash
@@ -35,119 +46,118 @@ cd arc-tech-store
 npm install
 \`\`\`
 
-3. Run the development server:
+3. Set up environment variables:
+\`\`\`bash
+cp .env.example .env.local
+\`\`\`
+
+Fill in your environment variables:
+- `RAZORPAY_KEY_ID` - Your Razorpay key ID
+- `RAZORPAY_KEY_SECRET` - Your Razorpay key secret
+- `RAZORPAY_WEBHOOK_SECRET` - Your webhook secret
+- `NEXT_PUBLIC_APP_URL` - Your app URL
+- `ADMIN_EMAIL` - Admin email for notifications
+
+4. Run the development server:
 \`\`\`bash
 npm run dev
 \`\`\`
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🏗️ Project Structure
+## Project Structure
 
 \`\`\`
 arc-tech-store/
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   ├── products/          # Products page
-│   ├── cart/              # Cart page
-│   ├── about/             # About page
-│   └── api/               # API routes
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   ├── (pages)/           # Page components
+│   └── globals.css        # Global styles
 ├── components/            # React components
 │   ├── 3d/               # 3D model components
 │   ├── ui/               # UI components
 │   └── ...               # Feature components
-├── lib/                  # Utilities and data
+├── lib/                  # Utilities and configurations
 │   ├── store.ts          # Zustand store
 │   ├── types.ts          # TypeScript types
-│   └── data.ts           # Mock data
-├── public/               # Static assets
-│   └── models/           # 3D model files (.glb)
-└── ...                   # Config files
+│   └── utils.ts          # Utility functions
+└── public/               # Static assets
 \`\`\`
 
-## 🎨 Design System
+## Key Components
 
-### Colors
-- **Primary**: Blue gradient (#3B82F6 to #8B5CF6)
-- **Secondary**: Purple gradient (#7C3AED to #06B6D4)
-- **Accent**: Cyan (#06B6D4)
-- **Background**: Dark gradients with glassmorphism
+### AI Agent Showcase
+- Interactive 3D models for each AI agent
+- Rotating showcase with auto-play functionality
+- Detailed specifications and pricing
+- Smooth transitions and animations
 
-### Typography
-- **Font**: Inter (Google Fonts)
-- **Headings**: Bold with gradient text effects
-- **Body**: Regular weight with proper contrast
+### E-commerce Features
+- Shopping cart with persistent state
+- Checkout process with payment integration
+- Order management and tracking
+- Email confirmations
 
-### Components
-- **Glass Cards**: Backdrop blur with subtle borders
-- **Glow Effects**: CSS box-shadow animations
-- **Floating Elements**: CSS keyframe animations
+### 3D Models
+- Custom 3D models for each AI agent type
+- Realistic materials and lighting
+- Interactive controls and animations
+- Optimized for performance
 
-## 🚀 Deployment
+## Payment Integration
+
+The application uses Razorpay for payment processing:
+
+1. **Subscription Flow**: Users can subscribe to AI agents
+2. **Payment Processing**: Secure payment handling via Razorpay
+3. **Webhooks**: Automated order confirmation and email notifications
+4. **Admin Notifications**: Real-time notifications for new orders
+
+## Deployment
 
 ### Vercel (Recommended)
+
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Deploy with zero configuration
+3. Set up environment variables in Vercel dashboard
+4. Deploy automatically
 
-### Manual Build
+### Manual Deployment
+
+1. Build the application:
 \`\`\`bash
 npm run build
+\`\`\`
+
+2. Start the production server:
+\`\`\`bash
 npm start
 \`\`\`
 
-## 🔧 Configuration
+## Environment Variables
 
-### Environment Variables
-Create a \`.env.local\` file for environment-specific settings:
+Required environment variables:
 
 \`\`\`env
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
-STRIPE_SECRET_KEY=your_stripe_secret_key
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
+NEXT_PUBLIC_APP_URL=https://your-domain.com
+ADMIN_EMAIL=admin@your-domain.com
 \`\`\`
 
-### 3D Models
-- Place \`.glb\` files in \`public/models/\`
-- Update model paths in \`lib/data.ts\`
-- Optimize models for web (< 5MB recommended)
-
-## 📱 Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch: \`git checkout -b feature/amazing-feature\`
-3. Commit your changes: \`git commit -m 'Add amazing feature'\`
-4. Push to the branch: \`git push origin feature/amazing-feature\`
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👨‍💻 Author
+## Support
 
-**Hamza Alnasir**
-- Portfolio: [your-portfolio.com](https://your-portfolio.com)
-- GitHub: [@hamza-alnasir](https://github.com/hamza-alnasir)
-- LinkedIn: [Hamza Alnasir](https://linkedin.com/in/hamza-alnasir)
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) for the amazing framework
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) for 3D capabilities
-- [Tailwind CSS](https://tailwindcss.com/) for styling
-- [Zustand](https://github.com/pmndrs/zustand) for state management
-- [Framer Motion](https://www.framer.com/motion/) for animations
-
----
-
-Built with ❤️ by Hamza Alnasir
-\`\`\`
+For support, email support@arctech.com or create an issue on GitHub.
